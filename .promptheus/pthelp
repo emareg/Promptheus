@@ -1,0 +1,35 @@
+
+printf "\033[1;31mDON'T PANIC!\033[0;37m. Here is a list of common commands that you can type.
+Notation: \033[1;38mcommand -option ARGUMENT [OPTIONAL_ARGUMENT]  ;  command2\033[0;37m
+For more help type \033[1;38mman COMMAND\033[0;37m, or \033[1;38mCOMMAND --help\033[0;37m
+Press '\033[1;31mq\033[0;37m' or '\033[1;31mCTRL + c\033[0;37m' (written ^C) to exit/stop running commands. 
+
+\033[1;33mFiles and Folders (Directories)\033[0;37m
+\033[1;37mls; cd [DIR]; pwd       \033[0;37m  list DIRectory; change to DIR; print DIR
+\033[1;37mcp FROM TO; mv FROM TO  \033[0;37m  copy file/dir FROM (path) TO (path); move
+\033[1;37mcat FILE; nano FILE     \033[0;37m  output FILE content to stdout; edit FILE
+\033[1;37mln -s TARGET [NAME]     \033[0;37m  create symbolic link to TARGET at NAME
+
+\033[1;33mPermissions\033[0;37m
+\033[1;37mchown OWNER:GROUP FILE  \033[0;37m  change owner of FILE
+\033[1;37mchmod 777 FILE          \033[0;37m  change perm for User|Group|Other 124=xwr
+\033[1;37mchmod [+-][xwr] FILE    \033[0;37m  add/del perm. for all (UGO)
+  \033[1;37m-R\033[0;37m   : recursive for all files
+\033[1;37msudo COMMAND            \033[0;37m  execute COMMAND with root privileges
+
+\033[1;33mProcesses / Commands\033[0;37m
+\033[1;37mps; pstree; top         \033[0;37m  list running processes / commands
+\033[1;37mkillall PROCESS         \033[0;37m  stop all processes called PROCESS
+\033[1;37mjobs; fg                \033[0;37m  list jobs; bring job to foreground
+
+\033[1;33mOutput Formatting\033[0;37m (add after command)
+\033[1;37m > FILE; 2> FILE        \033[0;37m  Redirect STDOUT; STDERR to FILE
+\033[1;37m | grep \"*WORD*\"        \033[0;37m  Show only output lines containing WORD
+
+\033[1;33mPromptheus Helpers:\033[0;37m (This is '$THISSHELL' Shell with Promptheus Theme)
+\033[1;37msysinfo                 \033[0;37m  show OS, Hardware, IP
+\033[1;37mff FILE; fif WORD       \033[0;37m  find FILE; find files containing WORD
+\033[1;37mextract ARCHIVE         \033[0;37m  extracts any ARCHIVE file
+\033[1;37mptSslim; ptSfull        \033[0;37m  switch Promptheus Theme         
+"
+

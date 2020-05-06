@@ -1,0 +1,32 @@
+# common alias definitions for sh, ksh, dash, bash, zsh, fish
+
+# Alias
+# --------------------------------->
+alias ..='cd ..'; alias ...='cd ../..'; alias ....='cd ../../..'
+alias cd..='cd ..'
+
+alias ls='ls -BCF --color=always --group-directories-first'
+alias la='ls -aBCF --color=always --group-directories-first'
+alias sl='\ls'
+alias ll='\ls -lGFah --color --group-directories-first --time-style=+"%y-%m-%d %R"'
+
+
+alias du='du -sh'     # disk usage is human
+alias dus='du -sh * | sort -hr | head -n 15'  # disk usage sorted
+alias df='df -h'      # disk freespace is human
+
+alias grep='grep --color=auto'
+
+
+
+alias ff='find . | grep -i'    # find file
+alias fif='grep -InH -r'       # find in file
+
+
+alias rm='rm -i'
+alias mv='mv -i'
+
+
+alias xopen='xdg-open'
+
+
