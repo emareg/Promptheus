@@ -9,7 +9,7 @@ TMP_DIR="/tmp/pt_tmp_Promptheus"
 if [ "$1" = "remove" ]; then
 
 	echo "Do you want to completely remove Promptheus?"
-	echo -n "(y|n)? > "read yn </dev/tty
+	echo -n "(y|n)? > "; read yn </dev/tty
 	if [ "$yn" != "${yn#[Yy]}" ] ;then
 		echo "Uninstalling Promptheus..."
 		rm -r "$HOME/.promptheus"

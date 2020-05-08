@@ -66,7 +66,6 @@ ptScolors    # use colors by default
 
 ## dircolors (set LS_COLORS)
 if [ -f ~/.dircolors ]; then
-	echo "eval dircolors"
 	eval "$(dircolors -b ~/.dircolors)"
 else
 	eval "$(dircolors -b ~/.promptheus/.dircolors)" 
