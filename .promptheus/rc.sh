@@ -196,7 +196,7 @@ elif [ "$THISSHELL" = "bash" ]; then
 	shopt -s autocd     # cd to dirname
 
   	complete -cf sudo   # Bash sudo completion
-  	complete -o nospace -o filenames -F fuzzypath cd ls cat
+  	# complete -o nospace -o filenames -F fuzzypath cd ls cat
 else
 	_PTMARK='>'
 	ptSfull(){ export PS1='$(__ptPSfull; printf "$PS1")'; }

@@ -3,6 +3,10 @@
 
 SOURCE_ENTRY_SH='source ~/.promptheus/rc.sh # Promptheus Theme'
 SOURCE_ENTRY_FISH='source ~/.promptheus/rc.fish  # Promptheus Theme'
+BASHRC=~/.bashrc
+ZSHRC=~/.zshrc
+FISHRC=~/.config/fish/config.fish
+
 TMP_DIR="/tmp/pt_tmp_Promptheus"
 
 
@@ -44,7 +48,7 @@ fi
 
 unzip master.zip > /dev/null
 
-echo "Copying files to "
+echo "Copying files to $HOME/"
 cp -r "./Promptheus-master/.promptheus" "$HOME/"
 cd
 
@@ -52,29 +56,13 @@ cd
 echo "Cleaning up..."
 rm -r "$TMP_DIR"
 
+
+if [ $(cat "$BASHRC" | grep -c "$SOURCE_ENTRY_SH") -eq 0 ]; then echo "$SOURCE_ENTRY_SH" >> $BASHRC; fi
+if [ $(cat "$ZSHRC" | grep -c "$SOURCE_ENTRY_SH") -eq 0 ]; then echo "$SOURCE_ENTRY_SH" >> $ZSHRC; fi
+if [ $(cat "$FISHRC" | grep -c "$SOURCE_ENTRY_FISH") -eq 0 ]; then echo "$SOURCE_ENTRY_SH" >> $FISHRC; fi
+
 echo "All done."
 echo "To uninstall, run $0 remove."
 echo ""
 
-# echo "Should I add the following three entries to your rc files?" 
-# echo " > echo 'source ~/.promptheus/rc.sh' >> ~/.bashrc"
-# echo " > echo 'source ~/.promptheus/rc.sh' >> ~/.zshrc"
-# echo " > echo 'source ~/.promptheus/rc.fish' >> ~/.config/fish/config.fish" 
-# echo "This will apply Promptheus Theme on Shell Start."
-# echo -n "(y|n)? > "
-
-#read yn </dev/tty
-yn="y"
-if [ "$yn" != "${yn#[Yy]}" ]; then
-	echo "$SOURCE_ENTRY_SH" >> ~/.bashrc
-	echo "$SOURCE_ENTRY_SH" >> ~/.zshrc
-	echo "$SOURCE_ENTRY_FISH" >> ~/.config/fish/config.fish
-fi
-
-
-#echo -n "Do you want to try Promptheus temporary on bash now? (y|n) " 
-#read yn </dev/tty
-# if [ "$yn" != "${yn#[Yy]}" ]; then
-#     bash --init-file ~/.promptheus/rc.sh
-# fi
-# exit 0
+exit 0
