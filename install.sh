@@ -57,9 +57,10 @@ echo "Cleaning up..."
 rm -r "$TMP_DIR"
 
 
-if [ $(cat "$BASHRC" | grep -c "$SOURCE_ENTRY_SH") -eq 0 ]; then echo "$SOURCE_ENTRY_SH" >> $BASHRC; fi
-if [ $(cat "$ZSHRC" | grep -c "$SOURCE_ENTRY_SH") -eq 0 ]; then echo "$SOURCE_ENTRY_SH" >> $ZSHRC; fi
-if [ $(cat "$FISHRC" | grep -c "$SOURCE_ENTRY_FISH") -eq 0 ]; then echo "$SOURCE_ENTRY_SH" >> $FISHRC; fi
+grep -qxsF -- "$SOURCE_ENTRY_SH" "$BASHRC" || echo "$SOURCE_ENTRY_SH" >> "$BASHRC"
+grep -qxsF -- "$SOURCE_ENTRY_SH" "$ZSHRC" || echo "$SOURCE_ENTRY_SH" >> "$ZSHRC"
+grep -qxsF -- "$SOURCE_ENTRY_FISH" "$FISHRC" || echo "$SOURCE_ENTRY_FISH" >> "$FISHRC"
+
 
 echo "All done."
 echo "To uninstall, run $0 remove."
