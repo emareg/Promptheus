@@ -53,26 +53,28 @@ echo "Cleaning up..."
 rm -r "$TMP_DIR"
 
 echo "All done."
-echo "To uninstall, simply remove folder '~/.promptheus'."
+echo "To uninstall, run $0 remove."
 echo ""
 
-echo "Should I add the following three entries to your rc files?" 
-echo " > echo 'source ~/.promptheus/rc.sh' >> ~/.bashrc"
-echo " > echo 'source ~/.promptheus/rc.sh' >> ~/.zshrc"
-echo " > echo 'source ~/.promptheus/rc.fish' >> ~/.config/fish/config.fish" 
-echo "This will apply Promptheus Theme on Shell Start."
-echo -n "(y|n)? > "
-read yn </dev/tty
+# echo "Should I add the following three entries to your rc files?" 
+# echo " > echo 'source ~/.promptheus/rc.sh' >> ~/.bashrc"
+# echo " > echo 'source ~/.promptheus/rc.sh' >> ~/.zshrc"
+# echo " > echo 'source ~/.promptheus/rc.fish' >> ~/.config/fish/config.fish" 
+# echo "This will apply Promptheus Theme on Shell Start."
+# echo -n "(y|n)? > "
+
+#read yn </dev/tty
+yn="y"
 if [ "$yn" != "${yn#[Yy]}" ]; then
 	echo "$SOURCE_ENTRY_SH" >> ~/.bashrc
 	echo "$SOURCE_ENTRY_SH" >> ~/.zshrc
-	echo "$SOURCE_ENTRY_DISH" >> ~/.config/fish/config.fish
+	echo "$SOURCE_ENTRY_FISH" >> ~/.config/fish/config.fish
 fi
 
 
-echo -n "Do you want to try Promptheus temporary on bash now? (y|n) " 
-read yn </dev/tty
-if [ "$yn" != "${yn#[Yy]}" ]; then
-    bash --init-file ~/.promptheus/rc.sh
-fi
-exit 0
+#echo -n "Do you want to try Promptheus temporary on bash now? (y|n) " 
+#read yn </dev/tty
+# if [ "$yn" != "${yn#[Yy]}" ]; then
+#     bash --init-file ~/.promptheus/rc.sh
+# fi
+# exit 0
