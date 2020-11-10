@@ -222,21 +222,21 @@ ptSslim
 
 # todo
 # https://superuser.com/questions/561451/is-there-a-shell-which-supports-fuzzy-completion-as-in-sublime-text
-fuzzypath() {
-    if [ -z $2 ]; then
-        COMPREPLY=( `\ls | tr "\n" " "` )
-    else
-    	if [ ${2:0:1} == '$' ]; then COMPREPLY=""; return 1; fi
-    	DIRPATH=$(echo "$2" | sed -E 's/[^/]*$//')
-    	#echo $DIRPATH
-    	BASENAME=$(echo "$2")
-    	echo "BN:'"$BASENAME"'"
-        FILTER=$(echo "$BASENAME" | sed -E 's|.|\0.*|g')
-        COMPREPLY=(`\ls $DIRPATH | \grep -i "^$FILTER" | tr "\n" " " `)
-        echo ${COMPREPLY[@]}
-        # echo $(\ls -m | \grep -i "^D.*o.*" | sed -E "s|^||g")
-    fi
-}
+# fuzzypath() {
+#     if [ -z $2 ]; then
+#         COMPREPLY=( `\ls | tr "\n" " "` )
+#     else
+#     	if [ ${2:0:1} == '$' ]; then COMPREPLY=""; return 1; fi
+#     	DIRPATH=$(echo "$2" | sed -E 's/[^/]*$//')
+#     	#echo $DIRPATH
+#     	BASENAME=$(echo "$2")
+#     	echo "BN:'"$BASENAME"'"
+#         FILTER=$(echo "$BASENAME" | sed -E 's|.|\0.*|g')
+#         COMPREPLY=(`\ls $DIRPATH | \grep -i "^$FILTER" | tr "\n" " " `)
+#         echo ${COMPREPLY[@]}
+#         # echo $(\ls -m | \grep -i "^D.*o.*" | sed -E "s|^||g")
+#     fi
+# }
 
 
 ipscan(){

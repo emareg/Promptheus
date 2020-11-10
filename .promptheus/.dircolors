@@ -169,6 +169,7 @@ EXEC 01;32  # Unix
 
 
 # Source text
+# check https://github.com/trapd00r/LS_COLORS/blob/master/LS_COLORS
 
 # project files
 .gpr  00;36
@@ -227,6 +228,8 @@ EXEC 01;32  # Unix
 
 # special files
 *Makefile 00;35
+*Dockerfile 00;35
+*CMakeLists.txt 00;35
 *README 00;35
 .cmake 00;35
 
