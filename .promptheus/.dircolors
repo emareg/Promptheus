@@ -101,6 +101,19 @@ EIGHTBIT 1
 # yellow: 220, orange: 202, red: 160, magenta: 162, violet: 62, blue: 32, cyan: 36, green: 64
 
 
+# own color scheme
+# identify files that I can interact with in the terminal
+# BLUE: folders
+# green: code
+# GREEN: executable
+# violet: Special files (Makefile)
+# red: PDF, HTML, PPTx, odf
+# yellow: images, 
+# orange: audio 
+# ORANGE: videos
+
+
+
 
 
 

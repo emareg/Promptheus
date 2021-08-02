@@ -25,7 +25,8 @@ set   gray="%{\033[1;30m%}"
 set     end="%{\033[0m%}" # This is needed at the end... :(
 
 
-# alias gitinfo 'set isgit=`git rev-parse --is-inside-work-tree`;if ("$isgit" == "true") git rev-parse --abbrev-ref HEAD'
+# Basic git information
+#alias gitinfo 'set isgit=`git rev-parse --is-inside-work-tree`;if ("$isgit" == "true") git rev-parse --abbrev-ref HEAD'
 alias gitinfo 'if (-d ".git") git rev-parse --abbrev-ref HEAD'
 
 

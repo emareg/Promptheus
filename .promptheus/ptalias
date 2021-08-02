@@ -8,6 +8,7 @@ alias cd..='cd ..'
 alias ls='ls -BCF --color=always --group-directories-first'
 alias la='ls -aBCF --color=always --group-directories-first'
 alias sl='\ls'
+alias lsd='\ls -BC -d */'
 alias ll='\ls -lGFah --color --group-directories-first --time-style=+"%y-%m-%d %R"'
 
 
@@ -18,15 +19,25 @@ alias df='df -h'      # disk freespace is human
 alias grep='grep --color=auto'
 
 
-
+# Searching
+# ----------------------------
 alias ff='find . | grep -i'    # find file
-alias fif='grep -InH -r'       # find in file
+# find in file, option -I already ignores jpg/pdf
+alias fif='find . -size -3M | grep --exclude-dir={.git,.svn} -IinHr'       
+alias fit='grep --include=\*.{txt,md,tex,rtf,bib} -IinHr'       # find in file
 
 
+
+# List infos
+# ----------------------------
+alias lsports='netstat -tulanp'
+
+
+# Safety first
 alias rm='rm -i'
 alias mv='mv -i'
 
 
 alias xopen='xdg-open'
 
-
+alias serve='python3 -m http.server'

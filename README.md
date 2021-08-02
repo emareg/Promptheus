@@ -47,6 +47,10 @@ echo 'source ~/.promptheus/rc.fish # Promptheus Theme' >> ~/.config/fish/config.
 ```
 
 
+### Dependencies
+* `sed`, which should be available on all systems
+
+
 ### Styles
 Promptheus provides two default prompt styles that can be set by calling
 

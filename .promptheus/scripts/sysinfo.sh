@@ -204,10 +204,11 @@ submenu_net(){
 
 submenu_filesystem(){
 	cmd_df="df -Th -x tmpfs"
+	cmd_journal="journalctl --verify"
 
 	fsmenu="
 	>${cmd_df}!List Filesystems
-	"
+	>${cmd_journal}!Verify Journal"
 
 	print_menu "Filesystem" "$fsmenu"
 }

@@ -28,12 +28,13 @@ set fish_color_param cyan      # color of file name parameters
 
 
 # promptheus colors
-set	_ptCn  (set_color white)    # normal color
-set	_ptCpt (set_color cyan)     # primary promptheus color
+set	_ptCn  (set_color normal -b black)    # normal color
+set	_ptCpt (set_color brcyan)     # primary promptheus color
 set	_ptChl (set_color bryellow) # color for higlighting symbols
-set	_ptCadd (set_color grey)  # color for additional info
-set	_ptCgood (set_color green)   
+set	_ptCadd (set_color brwhite)  # color for additional info grey
+set	_ptCgood (set_color brgreen)   
 set	_ptCbad (set_color red)   
+set _ptCbg (set_color -b brblack)
 
 
 # set dircolors
@@ -56,6 +57,7 @@ if set -q SSH_TTY
 end
 
 
+set _ptPend (set_color brblack -b normal)"▶$_ptCn"
 
 
 # prompt
@@ -77,6 +79,8 @@ function __ptFsetvars
 	# PWD
 	if test "$_ptVlwd" != "$PWD"
   		set ptVcwd (prompt_pwd)
+  		set -g _ptVlwd "$PWD"  # store last CWD
+
   		if test -w $PWD
   			set ptCcwd $_ptCgood
   		else 
@@ -95,10 +99,13 @@ function __ptFsetvars
 	set -g ptPj "["(jobs | wc -l)"&]"
 	if test "$ptPj" = "[0&]"; set ptPj ""; end
 
+	# Python venv
+	# set -g ptPvenv ""; if test -n "$VIRTUAL_ENV"; set ptPvenv "$_ptCadd""["(basename "$VIRTUAL_ENV")"]"; end
+
 	# git
 	set -g ptPgit (git rev-parse --abbrev-ref HEAD 2> /dev/null)
 	if [ $ptPgit ]
-		set ptPgit " $_ptCadd⑂$ptPgit$_ptCn"
+		set ptPgit " $_ptCadd⑂$ptPgit" # ⎇⑂⑃⌥▶◣
 
     	set ptPgitahead (git log --oneline "@{upstream}".. 2> /dev/null | wc -l | tr -d ' ')   # ⇡⇑↑↟
     	set ptPgitbehind (git log --oneline .."@{upstream}" 2> /dev/null | wc -l | tr -d ' ')
@@ -131,18 +138,17 @@ end
 function __ptPtwoline
 	__ptFsetvars
 	echo "$_ptCpt┌──╸$ptPtime╺─◆─┤ $_ptPhost$ptPcwd ├─■"\n"$_ptCpt└─$ptPj┤$ptPgit $ptPsign "
-	set -g _ptVlwd "$PWD"  # store last CWD
 end
 
 
 function __ptPoneline
 	__ptFsetvars
 
-    set -l ptPcwd (echo $ptPcwd|sed -re "s!([^/]{6})[^/]{8,}/!\1$_ptChl…!g")   # further shrink cwd
+    set -l ptPcwd (echo $ptPcwd|sed -re "s!([^/]{7})[^/]{8,}/!\1$_ptChl…!g")   # further shrink cwd
     set -l ptPgit (echo $ptPgit|sed -re "s!master!!g")
 
-    echo "$_ptCpt$ptPj$ptPcwd$ptPgit $ptPsign "
-    set -g _ptVlwd "$PWD"  # store last CWD
+    echo "$_ptCbg$_ptCpt$ptPvenv$ptPj$ptPcwd$ptPgit$_ptPend$ptPsign "   #
+    
 end
 
 
@@ -150,7 +156,7 @@ end
 ## define setting functions
 function ptSfull; function fish_prompt; __ptPtwoline; end; end
 function ptSslim; function fish_prompt; __ptPoneline; end; end
-function ptSoff; function fish_prompt; echo -n -s (set_color $fish_color_user)"$USER:"(set_color $fish_color_cwd)(prompt_pwd)" > "
+function ptSoff; function fish_prompt; echo -n (set_color $fish_color_user)"$USER:"(set_color $fish_color_cwd)(prompt_pwd)" > "
 end; end
 
 

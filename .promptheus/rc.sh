@@ -10,10 +10,12 @@ if [ -n "${KSH_VERSION}" ]; then THISSHELL="ksh"; THISVERSION="${KSH_VERSION}"; 
 if [ -n "${POSH_VERSION}" ]; then THISSHELL="posh"; THISVERSION="${POSH_VERSION}"; fi  # no alias
 
 
-
+# /a
 
 # Colors
 # --------------------------------->
+ESC=$(printf "\e")
+
 
 # Prompt Colors for sh/ksh/dash
 white='\033[0;37m'; WHITE='\033[1;37m'
@@ -26,17 +28,36 @@ yellow='\033[0;33m'; YELLOW='\033[1;33m'
 GRAY='\033[1;30m';   none='\033[0;30m'
 
 
+white=$(printf "\e[0;37m"); WHITE=$(printf "\e[1;37m")
+blue=$(printf "\e[0;34m");   BLUE=$(printf "\e[1;34m")
+green=$(printf "\e[0;32m"); GREEN=$(printf "\e[1;32m")
+cyan=$(printf "\e[0;36m");   CYAN=$(printf "\e[1;36m")
+red=$(printf "\e[0;31m");     RED=$(printf "\e[1;31m")
+purple=$(printf "\e[0;35m"); PURPLE=$(printf "\e[1;35m")
+yellow=$(printf "\e[0;33m"); YELLOW=$(printf "\e[1;33m")
+GRAY=$(printf "\e[1;30m");   none=$(printf "\e[0;30m")
+
+
 # Prompt Colors: bash and zsh need special escapes...
+	  # white='\001\033[0;37m\002'; WHITE='\001\033[1;37m\002'
+	  # blue='\001\033[0;34m\002'; BLUE='\001\033[1;34m\002'
+	  # green='\001\033[0;32m\002'; GREEN='\001\033[1;32m\002'
+	  # cyan='\001\033[0;36m\002'; CYAN='\001\033[1;36m\002'
+	  # red='\001\033[0;31m\002'; RED='\001\033[1;31m\002'
+	  # purple='\001\033[0;35m\002'; PURPLE='\001\033[1;35m\002'
+	  # yellow='\001\033[0;33m\002'; YELLOW='\001\033[1;33m\002'
+	  # GRAY='\001\033[1;30m\002'
 if [ "$THISSHELL" = "bash" ]; then
-  white='\001\033[0;37m\002'; WHITE='\001\033[1;37m\002'
-  blue='\001\033[0;34m\002'; BLUE='\001\033[1;34m\002'
-  green='\001\033[0;32m\002'; GREEN='\001\033[1;32m\002'
-  cyan='\001\033[0;36m\002'; CYAN='\001\033[1;36m\002'
-  red='\001\033[0;31m\002'; RED='\001\033[1;31m\002'
-  purple='\001\033[0;35m\002'; PURPLE='\001\033[1;35m\002'
-  yellow='\001\033[0;33m\002'; YELLOW='\001\033[1;33m\002'
-  GRAY='\001\033[1;30m\002'
+  white=$(printf "\001\e[0;37m\002"); WHITE=$(printf "\001\e[1;37m\002")
+  blue=$(printf "\001\e[0;34m\002");   BLUE=$(printf "\001\e[1;34m\002")
+  green=$(printf "\001\e[0;32m\002"); GREEN=$(printf "\001\e[1;32m\002")
+  cyan=$(printf "\001\e[0;36m\002");   CYAN=$(printf "\001\e[1;36m\002")
+  red=$(printf "\001\e[0;31m\002");     RED=$(printf "\001\e[1;31m\002")
+  purple=$(printf "\001\e[0;35m\002"); PURPLE=$(printf "\001\e[1;35m\002")
+  yellow=$(printf "\001\e[0;33m\002"); YELLOW=$(printf "\001\e[1;33m\002")
+  GRAY=$(printf "\001\e[1;30m\002");   none=$(printf "\001\e[0;30m\002")
 elif [ "$THISSHELL" = "zsh" ]; then
+  # print -P '%B%F{red}co%F{green}lo%F{blue}rs%f%b'
   white="%{$fg_no_bold[white]%}"; WHITE="%{$fg_bold[white]%}"
   blue="%{$fg_no_bold[blue]%}"; BLUE="%{$fg_bold[blue]%}"
   green="%{$fg_no_bold[green]%}"; GREEN="%{$fg_bold[green]%}"
@@ -112,7 +133,7 @@ __ptFsetvars(){
 	ptVret=$?
 	ptPtime="$(date '+%R')"
 	# ptPtime=$(printf '%b' "$ptCtime$ptPtime$_ptCpt")  # bash bug: \033 followd by number...
-	if [ $ptVret -ne 0 ]; then ptPerr="${_ptCbad}ERROR $ptVret\n${_ptCpt}"; else ptPerr=""; fi
+	if [ $ptVret -ne 0 ]; then ptPerr="${_ptCbad}ERROR ${ptVret}\n${_ptCpt}"; else ptPerr=""; fi
 
 	# PWD
 	if [ "${ptVlwd}" != "$PWD" ]; then
@@ -130,6 +151,12 @@ __ptFsetvars(){
 		ptPj="${_ptCpt}[$_ptChl$ptPjc&$_ptCpt]"
 		[ "$ptPjc" = "0" ] && ptPj=""
 	fi
+
+	# Python venv
+	ptPvenv=""
+	if [ -n "$VIRTUAL_ENV" ]; then
+		ptPvenv="${_ptCadd}[`basename \"$VIRTUAL_ENV\"`]"
+  	fi
 
 	# git
 	ptVisgit=$(git rev-parse --is-inside-work-tree 2> /dev/null)
@@ -160,7 +187,7 @@ __ptFsetvars(){
 
 __ptPSfull(){
 	__ptFsetvars
-	PS1="$ptPerr${_ptCpt}┌─${ptPj}─╸${ptPtime}╺─◆─┤ ${ptPhost}${ptPcwdl} ├─■
+	PS1="${ptPerr}${_ptCpt}┌─${ptPj}─╸${ptPtime}╺─◆─┤ ${ptPhost}${ptPcwdl} ├─■
 ${_ptCpt}└─┤$ptPgit$ptPsign " 
 	PS2="${_ptCpt}└◆┤ ${_ptCn}"
 	ptVlwd="$PWD"
@@ -170,7 +197,7 @@ ${_ptCpt}└─┤$ptPgit$ptPsign "
 __ptPSslim(){
 	__ptFsetvars
 	ptPgit=$(echo $ptPgit|sed -re "s!master!!g")
-	PS1="$ptPerr$_ptCpt$ptPj$ptPcwds$ptPgit$ptPsign "
+	PS1="${ptPerr}${ptPvenv}${_ptCpt}${ptPj}${ptPcwds}${ptPgit}${ptPsign} "
 }
 
 
