@@ -28,13 +28,13 @@ set fish_color_param cyan      # color of file name parameters
 
 
 # promptheus colors
-set	_ptCn  (set_color normal -b black)    # normal color
+set	_ptCn  (set_color normal)    # normal color
 set	_ptCpt (set_color brcyan)     # primary promptheus color
 set	_ptChl (set_color bryellow) # color for higlighting symbols
 set	_ptCadd (set_color brwhite)  # color for additional info grey
 set	_ptCgood (set_color brgreen)   
 set	_ptCbad (set_color red)   
-set _ptCbg (set_color -b brblack)
+set _ptCbg (set_color -b black)
 
 
 # set dircolors
@@ -57,7 +57,7 @@ if set -q SSH_TTY
 end
 
 
-set _ptPend (set_color brblack -b normal)"▶$_ptCn"
+set _ptPend (set_color brblack -b normal)" $_ptCn"
 
 
 # prompt
