@@ -15,6 +15,8 @@ alias ll='\ls -lGFah --color --group-directories-first --time-style=+"%y-%m-%d %
 alias du='du -sh'     # disk usage is human
 alias dus='du -sh * | sort -hr | head -n 15'  # disk usage sorted
 alias df='df -h'      # disk freespace is human
+alias ducks='du -cks * | sort -rn | head'      # disk usage
+
 
 alias grep='grep --color=auto'
 
@@ -31,6 +33,7 @@ alias fit='grep --include=\*.{txt,md,tex,rtf,bib} -IinHr'       # find in file
 # List infos
 # ----------------------------
 alias lsports='netstat -tulanp'
+alias lsdisks='df -h'
 
 
 # Safety first
@@ -40,4 +43,6 @@ alias mv='mv -i'
 
 alias xopen='xdg-open'
 
+# Shorts
+# ----------------------------
 alias serve='python3 -m http.server'

@@ -203,12 +203,16 @@ submenu_net(){
 
 
 submenu_filesystem(){
+	rootdev=$(mount | sed -n 's|^\(/dev/.*\) on / .*|\1|p')
 	cmd_df="df -Th -x tmpfs"
 	cmd_journal="journalctl --verify"
+	cmd_fsinfo="sudo dumpe2fs -h ${rootdev}"
+
 
 	fsmenu="
 	>${cmd_df}!List Filesystems
-	>${cmd_journal}!Verify Journal"
+	>${cmd_journal}!Verify Journal
+	>${cmd_fsinfo}!Filesystem Info"
 
 	print_menu "Filesystem" "$fsmenu"
 }
