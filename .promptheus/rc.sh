@@ -159,7 +159,7 @@ __ptFsetvars(){
   	fi
 
 	# git
-	ptVisgit=$(git rev-parse --is-inside-work-tree 2> /dev/null)
+	ptVisgit=$(timeout 0.1 git rev-parse --is-inside-work-tree 2> /dev/null)
 	ptPgit=""
 	if [ "$ptVisgit" = "true" ]; then 
 		ptPgit=$(printf '%b' "${_ptCadd} ⑂`git rev-parse --abbrev-ref HEAD`${_ptCn}");
@@ -171,10 +171,11 @@ __ptFsetvars(){
     	elif [ "$ptPgitbehind" != "0" ]; then
     		ptPgit="$ptPgit$_ptChl↓$ptPgitbehind" # behind
     	fi
-    	ptPgitcom=$(git status --porcelain | grep '^ \?A\|^ \?M' | wc -l)
+    	# ptPgitcom=$(timeout 0.1 git status --porcelain | grep '^ \?A\|^ \?M' | wc -l)
+    	ptPgitcom=$(timeout 0.1 git diff --name-only | wc -l)
     	if test "$ptPgitcom" != "0"; then ptPgit="$ptPgit$_ptChl+"; fi    # non commited 
 
-		ptPgitunt=$(git status --porcelain | grep '^??' | wc -l)
+		ptPgitunt=$(timeout 0.1 git status --porcelain | grep '^??' | wc -l)
 		if test "$ptPgitunt" != "0"; then ptPgit="$ptPgit$_ptCbad…"; fi  # untracked
 	fi
 	if [ "$(id -u)" -eq 0 ]; then ptPsign=$(printf '%s' " ${_ptCbad}#${_ptCn}"); else ptPsign=$(printf '%s' " ${_ptChl}${_PTMARK}${_ptCn}"); fi
